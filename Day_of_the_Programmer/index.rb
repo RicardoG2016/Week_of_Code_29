@@ -11,17 +11,29 @@
 #Gregorian Calendar leap year
 #if gregorian year % 400 equals 0 OR % 4 && % 100 > 0
 
+# Initial Setup
+# --------------------------------------------------
 days = 256
-cals = {jcal: 237, gcal: 243}
+cals = {j_cal: 237, g_cal: 243}
 
 def inRange(y)
   return true if 1700 <= y && y <= 2700
 end
 
-def leapYr()
-  return false
+# Leap year logic
+# --------------------------------------------------
+
+def leapYr(y)
+  if y <= 1917
+   return true if y % 4 == 0
+  elsif y >= 1919
+    if y % 400 == 0 || y % 4 == 0 && y % 100 > 0
+      return true
+    end
+  end
 end
 
+# --------------------------------------------------
 
 def format(day, month, year)
   finalDate = Time.new(year, month, day).strftime('%d.%m.%Y')
@@ -29,12 +41,19 @@ end
 
 def dateCalc(cals, year)
   month = "09"
-  if leapYr == false
-    day = 256 - cals[:gcal]
+  if year >= 1919
+      day = 256 - cals[:g_cal]
+    elsif year == 1918
+      p "1918"
+    elsif year <= 1917
+      day = 256 - cals[:j_cal]
+    else
   end 
+  if leapYr(year) == true
+    day -= 1
+  end
   return format(day, month, year)
 end
-
 
 def date(cals, y)
   if inRange(y)
@@ -44,9 +63,10 @@ def date(cals, y)
   end
 end
 
-date(cals, 2017)
-
-# p cals[:jcal]
+# Running code below
+# --------------------------------------------------
+y = gets.strip.to_i
+date(cals, y)
 
 
 
