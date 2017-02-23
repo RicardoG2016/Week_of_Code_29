@@ -13,6 +13,8 @@
 
 # Initial Setup
 # --------------------------------------------------
+y = gets.strip.to_i
+
 days = 256
 cals = {j_cal: 237, g_cal: 243}
 
@@ -24,7 +26,7 @@ end
 # --------------------------------------------------
 
 def leapYr(y)
-  if y <= 1917
+  if y <= 1918
    return true if y % 4 == 0
   elsif y >= 1919
     if y % 400 == 0 || y % 4 == 0 && y % 100 > 0
@@ -43,9 +45,9 @@ def dateCalc(cals, year)
   month = "09"
   if year >= 1919
       day = 256 - cals[:g_cal]
-    elsif year == 1918
-      p "1918"
-    elsif year <= 1917
+  elsif year == 1918
+      day = 256 - 243
+  elsif year <= 1917
       day = 256 - cals[:j_cal]
     else
   end 
@@ -57,7 +59,7 @@ end
 
 def date(cals, y)
   if inRange(y)
-    p dateCalc(cals, y)
+    return dateCalc(cals, y)
   else
     p "out of range"
   end
@@ -65,8 +67,8 @@ end
 
 # Running code below
 # --------------------------------------------------
-y = gets.strip.to_i
-date(cals, y)
+
+print date(cals, y)
 
 
 
