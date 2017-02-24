@@ -60,8 +60,6 @@ end
 def date(cals, y)
   if inRange(y)
     return dateCalc(cals, y)
-  else
-    p "out of range"
   end
 end
 

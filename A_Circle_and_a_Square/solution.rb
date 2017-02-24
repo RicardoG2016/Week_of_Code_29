@@ -27,7 +27,7 @@ y3 = 14
 
 canvas = Array.new(h) { Array.new(w, ".")}
 
-def in_sqr(array, x1, y1, x3, y3, h)
+def in_sqr(array, x1, y1, x3, y3, h, w)
   y2 = y1
   if y1 == y3
     count = (x1 - x3).abs + 1
@@ -40,7 +40,7 @@ def in_sqr(array, x1, y1, x3, y3, h)
         j = i
         while  j < count do
           array[y1][beg + j] = "#"
-          if y2 < h
+          if y2 <= h-1
            array[y2][beg + j] = "#" 
           end
           j+=1
@@ -49,6 +49,30 @@ def in_sqr(array, x1, y1, x3, y3, h)
         count-=1
         y1-= 1
         y2+= 1
+      end
+    end     
+  end
+
+  if x1 == x3
+    count = (y1 - y3).abs + 1
+    top = (count)/2
+    beg = y1 < y3 ? y1 : y3
+    i = 0
+
+    if x1 + 1 <= w - 1
+      while i < top + 1 do
+        j = i
+        while  j < count do
+          array[y1 + j][beg] = "#"
+          if x2 < w
+           array[x2 + j][beg + j] = "#" 
+          end
+          j+=1
+        end
+        i+=1
+        count-=1
+        x1-= 1
+        x2+= 1
       end
     end     
   end
@@ -74,4 +98,4 @@ end
 
 newArray = in_circle(canvas, r, circleX, circleY)
 
-in_sqr(newArray, x1, y1, x3, y3, h)
+in_sqr(newArray, x1, y1, x3, y3, h, w)
