@@ -35,8 +35,6 @@ def in_sqr(array, x1, y1, x3, y3, h)
     top = (count)/2
     beg = x1 < x3 ? x1 : x3
     i = 0
-    up = 0
-    down = 1
 
     if y1 - 1 >=0
       while i < top + 1 do
@@ -52,7 +50,6 @@ def in_sqr(array, x1, y1, x3, y3, h)
         count-=1
         y1-= 1
         y2+= 1
-        down = y1 + 1
       end
     end     
   end
@@ -71,7 +68,6 @@ def in_circle(array, r, circleX, circleY)
       array[y][x] = "#"
     end
     }
-  p array[y]
   }
 end
 
