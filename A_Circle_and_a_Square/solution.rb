@@ -24,7 +24,6 @@ x1 = 16
 y1 = 14
 x3 = 8
 y3 = 14
-rows = h
 
 canvas = Array.new(h) { Array.new(w, ".")}
 
@@ -53,7 +52,9 @@ def in_sqr(array, x1, y1, x3, y3, h)
       end
     end     
   end
-  p array
+  array.each do |x|
+    puts x.flatten.join
+  end
 end
 
 def in_circle(array, r, circleX, circleY)
