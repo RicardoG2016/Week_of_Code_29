@@ -37,7 +37,7 @@ def in_circle(array, r, circleX, circleY)
       x_net_sq = (arrayX - circleX) ** 2
       y_net_sq = (arrayY - circleY) ** 2
 
-    if r_sq < x_net_sq + y_net_sq
+    if r_sq >= x_net_sq + y_net_sq
       array[y][x] = "#"
     end
     }
