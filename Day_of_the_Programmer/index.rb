@@ -29,7 +29,7 @@ def leapYr(y)
   if y <= 1918
    return true if y % 4 == 0
   elsif y >= 1919
-    if y % 400 == 0 || y % 4 == 0 && y % 100 > 0
+    if y % 400 == 0 || y % 4 == 0 && y % 100 != 0
       return true
     end
   end
@@ -46,7 +46,7 @@ def dateCalc(cals, year)
   if year >= 1919
       day = 256 - cals[:g_cal]
   elsif year == 1918
-      day = 256 - 243
+      day = 256 - 231
   elsif year <= 1917
       day = 256 - cals[:j_cal]
     else
