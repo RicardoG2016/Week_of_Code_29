@@ -15,7 +15,7 @@ require 'pry'
 # y3 = y3.to_i
 
 # your code goes here
-square_drawn = false
+
 w = 20
 h = 16
 circleX = 9
@@ -25,6 +25,9 @@ x1 = 16
 y1 = 14
 x3 = 8
 y3 = 14
+
+# --------------------------------------------------
+square_drawn = false
 sqr_c_x = (x1 + x3) / 2
 sqr_c_y = (y1 + y3) / 2
 square_details = { :point1 => [x1, y1], :point2 => [], :point3 => [x3, y3], :point4 => [], :center => [sqr_c_x, sqr_c_y]}
@@ -43,10 +46,9 @@ def complete_square(square_details)
   slope_y = center_y - ( y1 < y3 ? y1 : y3 )
   slope_c = [slope_x, slope_y]
 
-  x2 = center_x - (slope_y).abs 
+  x2 = center_x + (slope_y).abs 
   y2 = center_y - (slope_x).abs 
-  
-  x4 = center_x + (slope_y).abs 
+  x4 = center_x - (slope_y).abs 
   y4 = center_y + (slope_x).abs 
 
   square_details[:point2][0] = x2
@@ -146,8 +148,8 @@ def mid_points(array, square_details, square_drawn)
 if square_drawn == false
   array.each_with_index do |row, y|
     row.each_with_index do |point, x|
-        if mid_x[0] < x && x < mid_x[3] && mid_y[0] <= y && y <= mid_y[3]
-          point = "#"
+        if mid_x[0] < x && x < mid_x[3] && mid_y[0] <= y && y <= mid_y[3] || mid_x[0] <= x && x <= mid_x[3] && mid_y[0] < y && y < mid_y[3]
+          array[y][x] = "#"
         end
     end
   end
@@ -158,10 +160,33 @@ end
 end
 
 def square_test(array, x1, y1, x3, y3, h, w, square_details, square_drawn)
+  x2 = square_details[:point2][0] 
+  y2 = square_details[:point2][1]
+
+  x4 = square_details[:point4][0] 
+  y4 = square_details[:point4][1]
+
+
   if w >= 10 && h >= 10 && w <= 100 && h <= 100 && x1 >= -100 && y1 >= -100 && x3 >= -100 && y3 >= -100 && x1 <= 200 && y1 <= 200 && x3 <= 200 && y3 <= 200
+
+    if y1 >= 0 && y1 < h && x1 < w && x1 >= 0
+      array[y1][x1] = "#"
+    end
+    if y2 >= 0 && y2 < h && x2 < w && x2 >= 0
+      array[y2][x2] = "#"
+    end
+    if y3 >= 0 && y3 < h && x3 < w && x3 >= 0
+      array[y3][x3] = "#"
+    end
+    if y4 >= 0 && y4 < h && x4 < w && x4 >= 0
+      if array[y4][x4] != []
+        array[y4][x4] = "#"
+      end
+    end
+
     y_scanned_array = y_test(array, x1, y1, x3, y3, h, w, square_drawn)
     x_test_array = x_test(array, x1, y1, x3, y3, h, w, square_drawn)
-    result = mid_points(x_test_array, square_details, square_drawn)
+    result = mid_points(array, square_details, square_drawn)
 
     result.each do |x|
       puts x.flatten.join
